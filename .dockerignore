@@ -1,0 +1,13 @@
+# session 3 assignment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite
+*.db
+*.env
+.git/
+.gitignore
+README.md
+
