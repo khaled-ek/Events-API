@@ -6,7 +6,7 @@ def test_user_set_password_behaves_correctly():
     user = models.User(username="user1")
     user.set_password("test123")
     # Asserts and testing
-    assert user.check_password("test12") == True
+    assert user.check_password("test123") == True
 
 
 def test_user_password_hashing_behaves_correctly():
