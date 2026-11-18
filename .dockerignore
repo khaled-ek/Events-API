@@ -1,13 +1,15 @@
 # session 3 assignment
 venv/
+.venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.sqlite
+*.sqlite*
 *.db
 *.env
 .git/
 .gitignore
+
 README.md
 
