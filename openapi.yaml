@@ -12,7 +12,7 @@ info:
 servers:
   - url: http://localhost:5000
     description: Local development server
-  - url: https://api.example.com
+  - url: https://events-api-n5o6.onrender.com
     description: Production server
 
 tags:
@@ -83,8 +83,12 @@ paths:
                   status:
                     type: string
                     example: healthy
+                  message:
+                    type: string
+                    example: The whole test is complete successfully
               example:
                 status: healthy
+                message: The whole test is complete successfully
 
   /api/auth/register:
     post:
@@ -769,4 +773,3 @@ components:
           type: string
           description: Alternative error message format (used by Flask-JWT-Extended)
           example: "Missing Authorization Header"
-

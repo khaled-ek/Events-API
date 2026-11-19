@@ -10,6 +10,16 @@ def base_url():
 
 @pytest.fixture
 def auth_token():
+    """
+        Registers a new user, authenticates the user, and returns an access token.
+
+        A unique username is generated using the current timestamp. The user is registered and then
+        authenticated through the API.
+
+        Returns:
+            str: The access token obtained after successful authentication.
+    """
+
     # create a unique user
     username = f"user{time.time() * 1000}"
     user = {
