@@ -89,38 +89,14 @@ jobs:
         env:
           RENDER_BASE_URL: ${{ secrets.RENDER_BASE_URL }}
         run: |
-          set -euo pipefail
-
-          if [ -z "${RENDER_BASE_URL:-}" ]; then
-            echo "ERROR: RENDER_BASE_URL secret is empty or not set."
-            exit 1
-          fi
-
-          # Strip trailing slash so we never get double slashes like //api/health
-          BASE_URL="${RENDER_BASE_URL%/}"
-          TARGET_URL="${BASE_URL}/api/health"
-          echo "Checking health endpoint: ${TARGET_URL}"
-
-          sleep 50
-
           for i in $(seq 1 12); do
-            BODY_FILE=$(mktemp)
-            STATUS=$(curl -sS -o "$BODY_FILE" -w "%{http_code}" "$TARGET_URL" || echo "000")
-            echo "Attempt $i/12: HTTP $STATUS"
-
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${RENDER_BASE_URL}/api/health" || true)
+            echo "Attempt $i: HTTP $STATUS"
             if [ "$STATUS" = "200" ]; then
-              echo "Render smoke test succeeded with HTTP 200."
-              rm -f "$BODY_FILE"
+              echo "Render smoke test succeeded!"
               exit 0
             fi
-
-            echo "Response body on attempt $i:"
-            cat "$BODY_FILE" || true
-            echo ""
-            rm -f "$BODY_FILE"
             sleep 20
           done
-
-          echo "ERROR: Render smoke test failed after 12 attempts (last HTTP status: $STATUS)."
+          echo "Render smoke test failed: did not receive HTTP 200 in time."
           exit 1
-
