@@ -83,7 +83,7 @@ jobs:
           curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
 
       - name: Wait for Render rollout
-        run: sleep 30
+        run: sleep 50
 
       - name: Smoke test Render health endpoint
         env:
@@ -96,7 +96,7 @@ jobs:
               echo "Render smoke test succeeded!"
               exit 0
             fi
-            sleep 10
+            sleep 20
           done
           echo "Render smoke test failed: did not receive HTTP 200 in time."
           exit 1
